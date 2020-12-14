@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import management.dao.Dao;
 import management.data.Query;
-import management.entities.Client;
 import management.entities.Dish;
 import management.connection.ConnectionPool;
 public class DishDao extends Dao {
@@ -47,23 +46,18 @@ public class DishDao extends Dao {
 		}
 		return items;
 	}
-}
-	/*
 	public void AddDish(HttpServletRequest request) {
-		Dish Dish= new Dish(request.getParameter("login"),request.getParameter("password"),request.getParameter("first_name"),
-				request.getParameter("last_name"),request.getParameter("email"),0,Integer.parseInt(request.getParameter("role_id")));
+		Dish dish= new Dish(request.getParameter("dish_name"),request.getParameter("nomination"),
+				Integer.parseInt(request.getParameter("price")),Integer.parseInt(request.getParameter("time_preparing")));
 		Connection conn= null;
 		PreparedStatement ps= null;
 		try {
 			conn = ConnectionPool.getConnection();
 			ps = conn.prepareStatement(Query.AddDish);
-	         ps.setString(1, Dish.getLogin());
-	         ps.setString(2, Dish.getPassword());
-	         ps.setString(3, Dish.getFirst_name());
-	         ps.setString(4, Dish.getLast_name());
-	         ps.setString(5, Dish.getEmail());
-	         ps.setInt(6, Dish.getBill());
-	         ps.setInt(7, Dish.getRole_id()); 
+	         ps.setString(1, dish.getDish_name());
+	         ps.setString(2, dish.getNomination());
+	         ps.setInt(3, dish.getPrice());
+	         ps.setInt(4, dish.getTime_preparing()); 
 	         int rows = ps.executeUpdate();
 	         if (rows==1)
 	        	 logger.debug("Dish added");
@@ -77,8 +71,7 @@ public class DishDao extends Dao {
 		 
 	}
 	public boolean CheckDish(HttpServletRequest request) {
-		String login = request.getParameter("login");
-		String password = request.getParameter("password");
+		String dish_name = request.getParameter("dish_name");
 		Connection conn= null;
 		PreparedStatement ps= null;
 		ResultSet rs = null;
@@ -86,8 +79,7 @@ public class DishDao extends Dao {
 		try {
 			conn = ConnectionPool.getConnection();
 			ps = conn.prepareStatement(Query.FindDish);
-			ps.setString(1, login);
-			ps.setString(2, password);
+			ps.setString(1, dish_name);
 			rs = ps.executeQuery();
 			if (rs.next()) {
 				result = true;
@@ -102,8 +94,7 @@ public class DishDao extends Dao {
 		return result;
 	}
 	public Dish GetDish(HttpServletRequest request) {
-		String login = request.getParameter("login");
-		String password = request.getParameter("password");
+		String dish_name = request.getParameter("dish_name");
 		Dish temp = null;
 		Connection conn= null;
 		PreparedStatement ps= null;
@@ -111,19 +102,15 @@ public class DishDao extends Dao {
 		try {
 			conn = ConnectionPool.getConnection();
 			ps = conn.prepareStatement(Query.FindDish);
-			ps.setString(1, login);
-			ps.setString(2, password);
+			ps.setString(1, dish_name);
 			rs = ps.executeQuery();
 			if (rs.next()) {
 				temp = new Dish();
-				temp.setBill(rs.getInt("bill"));
-				temp.setEmail(rs.getString("email"));
-				temp.setFirst_name(rs.getString("first_name"));
-				temp.setLast_name(rs.getString("last_name"));
+				temp.setDish_name(rs.getString("dish_name"));
 				temp.setId(rs.getInt("id"));
-				temp.setLogin(rs.getString("login"));
-				temp.setPassword(rs.getString("password"));
-				temp.setRole_id(rs.getInt("role_id"));
+				temp.setNomination(rs.getString("nomination"));
+				temp.setPrice(rs.getInt("price"));
+				temp.setTime_preparing(rs.getInt("time_preparing"));
 			}
 			logger.trace("Dish obtained");
 		}catch(Exception e) {
@@ -135,13 +122,13 @@ public class DishDao extends Dao {
 		return temp;
 	}
 	public void DeleteDish(HttpServletRequest request) {
-		String login = request.getParameter("login");
+		String dish_name = request.getParameter("dish_name");
 		Connection conn= null;
 		PreparedStatement ps= null;
 		try {
 			conn = ConnectionPool.getConnection();
 			ps = conn.prepareStatement(Query.DeleteDish);
-			ps.setString(1, login);
+			ps.setString(1, dish_name);
 			ps.executeUpdate();
 			logger.debug("Dish deleted");
 		}catch(Exception e) {
@@ -152,33 +139,8 @@ public class DishDao extends Dao {
 		}
 	}
 	
-	public void UpdateDish(HttpServletRequest request,int id) {
-		Dish dish = new Dish(request.getParameter("login"),request.getParameter("password"),request.getParameter("first_name"),
-				request.getParameter("last_name"),request.getParameter("email"),Integer.parseInt(request.getParameter("bill")),Integer.parseInt(request.getParameter("role_id")));
-		Connection conn= null;
-		PreparedStatement ps= null;
-		try {
-			conn = ConnectionPool.getConnection();
-			ps = conn.prepareStatement(Query.UpdateDish);
-	         ps.setString(1, dish.getLogin());
-	         ps.setString(2, dish.getPassword());
-	         ps.setString(3, dish.getFirst_name());
-	         ps.setString(4, dish.getLast_name());
-	         ps.setString(5, dish.getEmail());
-	         ps.setInt(6, dish.getBill());
-	         ps.setInt(7, dish.getRole_id()); 
-	         ps.setInt(8, id);
-	         int rows = ps.executeUpdate();
-	         if (rows==1)
-	        	 logger.debug("Dish added");
-		} catch (SQLException e) {
-			logger.error("Error adding Dish",e);
-		}
-		finally {
-			close(ps,conn);
-		}
-	}
+
 	
 }
-*/
+
 

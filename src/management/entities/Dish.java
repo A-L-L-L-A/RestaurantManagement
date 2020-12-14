@@ -1,11 +1,12 @@
 package management.entities;
 
 public class Dish {
-	private String id;
-	public String getId() {
+	private int id;
+	public int getId() {
 		return id;
 	}
-	public void setId(String id) {
+
+	public void setId(int id) {
 		this.id = id;
 	}
 	private String nomination;
@@ -20,7 +21,7 @@ public class Dish {
 		this.price = price;
 		this.time_preparing = time_preparing;
 	}
-	public Dish(String id, String nomination, String dish_name, int price, int time_preparing) {
+	public Dish(int id, String nomination, String dish_name, int price, int time_preparing) {
 		super();
 		this.id = id;
 		this.nomination = nomination;
