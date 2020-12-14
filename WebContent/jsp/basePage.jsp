@@ -33,6 +33,7 @@
 
 <c:if test="${curClient != null}">
 <div class="link">
+<a href="Controller?command=menuPage"><fmt:message key="order.order"/></a><br>
 <a href="Controller?command=exit"><fmt:message key="label.exit"/></a>
 </div>
 </c:if>

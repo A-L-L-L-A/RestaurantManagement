@@ -15,4 +15,5 @@ public static final String exit="exit";
 public static final String changeLang = "changeLang";
 public static final String updateClient = "updateClient";
 public static final String deleteClient = "deleteClient";
+public static final String addToCart="addToCart";
 }
